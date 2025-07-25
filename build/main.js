@@ -5,13 +5,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Loxone = void 0;
 const utils = require("@iobroker/adapter-core");
-const SentryNode = require("@sentry/node");
-const axios_1 = require("axios");
 const LxCommunicator = require("lxcommunicator");
 const uuid_1 = require("uuid");
 const Unknown_1 = require("./controls/Unknown");
 const weather_server_handler_1 = require("./weather-server-handler");
-const FormData = require("form-data");
 const Queue = require("queue-fifo");
 const WebSocketConfig = LxCommunicator.WebSocketConfig;
 // Log warnings if no ack event from Loxone in this time
@@ -70,9 +67,8 @@ class Loxone extends utils.Adapter {
             this.log.silly(`received update event: ${JSON.stringify(evt)}: ${uuid}`);
             this.eventsQueue.enqueue({ uuid, evt });
             this.handleEventQueue().catch((e) => {
-                var _a;
                 this.log.error(`Unhandled error in event ${uuid}: ${e}`);
-                (_a = this.getSentry()) === null || _a === void 0 ? void 0 : _a.captureException(e, { extra: { uuid, evt } });
+                // Error logged above
             });
         };
         webSocketConfig.delegate = {
@@ -139,11 +135,7 @@ class Loxone extends utils.Adapter {
         }
         this.log.silly(`get_structure_file ${JSON.stringify(file)}`);
         this.log.info(`got structure file; last modified on ${file.lastModified}`);
-        const sentry = this.getSentry();
-        if (sentry) {
-            // add an event processor to upload the structure file (only once)
-            SentryNode.getGlobalScope().addEventProcessor(this.createSentryEventProcessor(file));
-        }
+        // Structure file loaded successfully
         try {
             await this.loadStructureFileAsync(file);
             this.log.debug('structure file successfully loaded');
@@ -151,7 +143,7 @@ class Loxone extends utils.Adapter {
         catch (error) {
             // do not stringify error, it can contain circular references
             this.log.error(`Couldn't load structure file`);
-            sentry === null || sentry === void 0 ? void 0 : sentry.captureException(error, { extra: { file } });
+            // Error logged above
             return false;
         }
         return true; // Success
@@ -256,11 +248,7 @@ class Loxone extends utils.Adapter {
                 this.log.error(msg);
                 if (!this.reportedUnsupportedStateChanges.has(id)) {
                     this.reportedUnsupportedStateChanges.add(id);
-                    const sentry = this.getSentry();
-                    sentry === null || sentry === void 0 ? void 0 : sentry.withScope((scope) => {
-                        scope.setExtra('state', state);
-                        sentry.captureMessage(msg, 'warning');
-                    });
+                    // Unsupported state change logged above
                 }
             }
             else if (!this.lxConnected) {
@@ -340,44 +328,6 @@ class Loxone extends utils.Adapter {
             await this.handleStateChange(id, stateChangeListener, stateChangeListener.queuedVal);
             stateChangeListener.queuedVal = null;
         }
-    }
-    createSentryEventProcessor(data) {
-        let attachmentEventId;
-        return async (event) => {
-            var _a;
-            try {
-                if (attachmentEventId) {
-                    // structure file was already added
-                    if (event.breadcrumbs) {
-                        event.breadcrumbs.push({
-                            type: 'debug',
-                            category: 'started',
-                            message: `Structure file added to event ${attachmentEventId}`,
-                            level: 'info',
-                        });
-                    }
-                    return event;
-                }
-                const dsn = (_a = SentryNode.getClient()) === null || _a === void 0 ? void 0 : _a.getDsn();
-                if (!dsn || !event.event_id) {
-                    return event;
-                }
-                attachmentEventId = event.event_id;
-                const { host, path, projectId, port, protocol, publicKey } = dsn;
-                const endpoint = `${protocol}://${host}${port !== '' ? `:${port}` : ''}${path !== '' ? `/${path}` : ''}/api/${projectId}/events/${attachmentEventId}/attachments/?sentry_key=${publicKey}&sentry_version=7&sentry_client=custom-javascript`;
-                const form = new FormData();
-                form.append('att', JSON.stringify(data, null, 2), {
-                    contentType: 'application/json',
-                    filename: 'LoxAPP3.json',
-                });
-                await axios_1.default.post(endpoint, form, { headers: form.getHeaders() });
-                return event;
-            }
-            catch (ex) {
-                this.log.error(`Couldn't upload structure file attachment to sentry: ${ex}`);
-            }
-            return event;
-        };
     }
     async loadStructureFileAsync(data) {
         this.stateEventHandlers = {};
@@ -463,7 +413,6 @@ class Loxone extends utils.Adapter {
         await this.setStateAck(name + '-text', this.operatingModes[value]);
     }
     async loadControlsAsync(controls) {
-        var _a;
         let hasUnsupported = false;
         for (const uuid in controls) {
             const control = controls[uuid];
@@ -475,7 +424,7 @@ class Loxone extends utils.Adapter {
             }
             catch (e) {
                 this.log.info(`Currently unsupported control type ${control.type}: ${e}`);
-                (_a = this.getSentry()) === null || _a === void 0 ? void 0 : _a.captureException(e, { extra: { uuid, control } });
+                // Error logged above
                 if (!hasUnsupported) {
                     hasUnsupported = true;
                     await this.updateObjectAsync('Unsupported', {
@@ -502,7 +451,6 @@ class Loxone extends utils.Adapter {
         }
     }
     async loadSubControlsAsync(parentUuid, control) {
-        var _a;
         if (!control.hasOwnProperty('subControls')) {
             return;
         }
@@ -523,7 +471,7 @@ class Loxone extends utils.Adapter {
             }
             catch (e) {
                 this.log.info(`Currently unsupported sub-control type ${subControl.type}: ${e}`);
-                (_a = this.getSentry()) === null || _a === void 0 ? void 0 : _a.captureException(e, { extra: { uuid, subControl } });
+                // Error logged above
             }
         }
     }
@@ -633,7 +581,6 @@ class Loxone extends utils.Adapter {
         }
     }
     async handleEvent(evt) {
-        var _a;
         const stateEventHandlerList = this.stateEventHandlers[evt.uuid];
         if (stateEventHandlerList === undefined) {
             this.log.debug(`Unknown event ${evt.uuid}: ${JSON.stringify(evt.evt)}`);
@@ -646,7 +593,7 @@ class Loxone extends utils.Adapter {
             }
             catch (e) {
                 this.log.error(`Error while handling event UUID ${evt.uuid}: ${e}`);
-                (_a = this.getSentry()) === null || _a === void 0 ? void 0 : _a.captureException(e, { extra: { evt } });
+                // Error logged above
             }
         }
     }
@@ -884,18 +831,9 @@ class Loxone extends utils.Adapter {
         }
         return undefined;
     }
-    getSentry() {
-        if (this.supportsFeature && this.supportsFeature('PLUGINS')) {
-            const sentryInstance = this.getPluginInstance('sentry');
-            if (sentryInstance) {
-                return sentryInstance.getSentryObject();
-            }
-        }
-    }
     reportError(message) {
-        var _a;
         this.log.error(message);
-        (_a = this.getSentry()) === null || _a === void 0 ? void 0 : _a.captureMessage(message, 'error');
+        // Error logged above
     }
 }
 exports.Loxone = Loxone;

@@ -2,7 +2,7 @@
 
 # ioBroker.loxone
 
-> **📌 Maintained Fork**: This fork fixes critical issues in the original adapter (WebSocket errors, Sentry compatibility). [Original repo](https://github.com/UncleSamSwiss/ioBroker.loxone) inactive since 2022.
+> **📌 Maintained Fork**: This fork fixes critical issues in the original adapter (WebSocket errors, Sentry compatibility) and removes Sentry telemetry for privacy. [Original repo](https://github.com/UncleSamSwiss/ioBroker.loxone) inactive since 2022.
 
 [![GitHub Release](https://img.shields.io/github/v/release/netbasebe/ioBroker.loxone)](https://github.com/netbasebe/ioBroker.loxone/releases)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0-brightgreen)](https://nodejs.org/)
@@ -15,7 +15,6 @@
 
 Fetches all information available in Loxone Miniserver (and Loxone Miniserver Go) and provides changes in realtime.
 
-**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
 ## Install
 

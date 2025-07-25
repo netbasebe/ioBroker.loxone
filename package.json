@@ -33,10 +33,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.2.3",
-    "@sentry/node": "^9.42.0",
-    "axios": "^1.11.0",
     "color-convert": "^2.0.1",
-    "form-data": "^4.0.4",
     "lxcommunicator": "^1.1.1",
     "queue-fifo": "*",
     "sprintf-js": "^1.1.2",

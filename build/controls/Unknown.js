@@ -18,11 +18,7 @@ class Unknown extends control_base_1.ControlBase {
             // missing control wasn't reported yet for the current adapter version
             if (!this.adapter.reportedMissingControls.has(msg)) {
                 this.adapter.reportedMissingControls.add(msg);
-                const sentry = this.adapter.getSentry();
-                sentry === null || sentry === void 0 ? void 0 : sentry.withScope((scope) => {
-                    scope.setExtra('control', JSON.stringify(control, null, 2));
-                    sentry.captureMessage(msg, 'warning');
-                });
+                // Unknown control type logged above
             }
         }
         await this.updateObjectAsync(uuid, {
