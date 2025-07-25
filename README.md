@@ -2,16 +2,12 @@
 
 # ioBroker.loxone
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.loxone.svg)](https://www.npmjs.com/package/iobroker.loxone)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.loxone.svg)](https://www.npmjs.com/package/iobroker.loxone)
-![Number of Installations (latest)](http://iobroker.live/badges/loxone-installed.svg)
-![Number of Installations (stable)](http://iobroker.live/badges/loxone-stable.svg)
-[![Dependency Status](https://img.shields.io/david/UncleSamSwiss/iobroker.loxone.svg)](https://david-dm.org/UncleSamSwiss/iobroker.loxone)
-[![Translation status](https://weblate.iobroker.net/widgets/adapters/-/loxone/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
+> **📌 Maintained Fork**: This fork fixes critical issues in the original adapter (WebSocket errors, Sentry compatibility). [Original repo](https://github.com/UncleSamSwiss/ioBroker.loxone) inactive since 2022.
 
-[![NPM](https://nodei.co/npm/iobroker.loxone.png?downloads=true)](https://nodei.co/npm/iobroker.loxone/)
+[![GitHub Release](https://img.shields.io/github/v/release/netbasebe/ioBroker.loxone)](https://github.com/netbasebe/ioBroker.loxone/releases)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0-brightgreen)](https://nodejs.org/)
 
-**Tests:** ![Test and Release](https://github.com/UncleSamSwiss/ioBroker.loxone/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/netbasebe/ioBroker.loxone/workflows/Test%20and%20Release/badge.svg)
 
 ## loxone adapter for ioBroker
 
@@ -858,6 +854,31 @@ Native value from ioBroker &gt; Objects
 ### 0.0.1
 
 -   (UncleSamSwiss) Initial version
+
+## 👥 Maintainers & Contributors
+
+**Current Maintainer:** [NETbase](https://github.com/netbasebe) <contact@netbase.be>
+- Active maintenance since 2024
+- Bug fixes and dependency updates
+- ioBroker v7.6.17+ compatibility
+
+**Original Author:** [UncleSamSwiss](https://github.com/UncleSamSwiss)
+- Original adapter development (2020-2022)
+- Core functionality and architecture
+
+**Contributors:**
+- [Robin Rainton](https://github.com/robinrainton) - Early development contributions
+
+---
+
+## 🤝 Contributing
+
+This fork welcomes contributions! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request with clear description
+
+For issues, feature requests, or support: [GitHub Issues](https://github.com/netbasebe/ioBroker.loxone/issues)
 
 ## License
 
