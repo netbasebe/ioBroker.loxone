@@ -407,7 +407,6 @@ export class Loxone extends utils.Adapter {
         }
     }
 
-
     private async loadStructureFileAsync(data: StructureFile): Promise<void> {
         this.stateEventHandlers = {};
         this.foundRooms = {};
@@ -979,7 +978,6 @@ export class Loxone extends utils.Adapter {
 
         return undefined;
     }
-
 
     public reportError(message: string): void {
         this.log.error(message);

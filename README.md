@@ -15,7 +15,6 @@
 
 Fetches all information available in Loxone Miniserver (and Loxone Miniserver Go) and provides changes in realtime.
 
-
 ## Install
 
 Install this adapter via ioBroker Admin:
@@ -857,22 +856,26 @@ Native value from ioBroker &gt; Objects
 ## 👥 Maintainers & Contributors
 
 **Current Maintainer:** [NETbase](https://github.com/netbasebe) <contact@netbase.be>
-- Active maintenance since 2024
-- Bug fixes and dependency updates
-- ioBroker v7.6.17+ compatibility
+
+-   Active maintenance since 2024
+-   Bug fixes and dependency updates
+-   ioBroker v7.6.17+ compatibility
 
 **Original Author:** [UncleSamSwiss](https://github.com/UncleSamSwiss)
-- Original adapter development (2020-2022)
-- Core functionality and architecture
+
+-   Original adapter development (2020-2022)
+-   Core functionality and architecture
 
 **Contributors:**
-- [Robin Rainton](https://github.com/robinrainton) - Early development contributions
+
+-   [Robin Rainton](https://github.com/robinrainton) - Early development contributions
 
 ---
 
 ## 🤝 Contributing
 
 This fork welcomes contributions! Please:
+
 1. Fork the repository
 2. Create a feature branch
 3. Submit a pull request with clear description
