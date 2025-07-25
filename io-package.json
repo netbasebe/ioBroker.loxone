@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "loxone",
-        "version": "3.0.1",
+        "version": "3.1.0",
         "news": {
+            "3.1.0": {
+                "en": "Fixed WebSocket connection crashes and Sentry compatibility issues\nUpdated dependencies for ioBroker v7.6.17+ compatibility\nRemoved Sentry telemetry for privacy\nMaintained fork with active development",
+                "de": "WebSocket-Verbindungsabstürze und Sentry-Kompatibilitätsprobleme behoben\nAbhängigkeiten für ioBroker v7.6.17+ Kompatibilität aktualisiert\nSentry-Telemetrie aus Datenschutzgründen entfernt\nGepflegter Fork mit aktiver Entwicklung",
+                "nl": "WebSocket verbinding crashes en Sentry compatibiliteit problemen opgelost\nAfhankelijkheden bijgewerkt voor ioBroker v7.6.17+ compatibiliteit\nSentry telemetrie verwijderd voor privacy\nOnderhouden fork met actieve ontwikkeling",
+                "fr": "Correction des plantages de connexion WebSocket et des problèmes de compatibilité Sentry\nMise à jour des dépendances pour la compatibilité ioBroker v7.6.17+\nSuppression de la télémétrie Sentry pour la confidentialité\nFork maintenu avec développement actif",
+                "it": "Risolti crash di connessione WebSocket e problemi di compatibilità Sentry\nAggiornate dipendenze per compatibilità ioBroker v7.6.17+\nRimossa telemetria Sentry per privacy\nFork mantenuto con sviluppo attivo",
+                "es": "Solucionados fallos de conexión WebSocket y problemas de compatibilidad con Sentry\nActualizadas dependencias para compatibilidad con ioBroker v7.6.17+\nEliminada telemetría Sentry por privacidad\nFork mantenido con desarrollo activo",
+                "pl": "Naprawiono awarie połączeń WebSocket i problemy z kompatybilnością Sentry\nZaktualizowano zależności dla kompatybilności z ioBroker v7.6.17+\nUsunięto telemetrię Sentry ze względu na prywatność\nUtrzymywany fork z aktywnym rozwojem",
+                "ru": "Исправлены сбои WebSocket соединений и проблемы совместимости с Sentry\nОбновлены зависимости для совместимости с ioBroker v7.6.17+\nУдалена телеметрия Sentry для конфиденциальности\nПоддерживаемый форк с активной разработкой",
+                "zh-cn": "修复WebSocket连接崩溃和Sentry兼容性问题\n更新依赖项以兼容ioBroker v7.6.17+\n为隐私删除Sentry遥测\n积极开发的维护分支"
+            },
             "3.0.1": {
                 "en": "Added info statistics (#364)\nAdded missing states from IRCv2 (#365)\nAdded basic functionality for Remote (Media Controller)\nFixed ack overwrites of fast changing states (#399) and general ack improvements\nFix crash when state changes occur during Miniserver reboot or otherwise unavailable (#298)\nRelease script and other dependency updates",
                 "de": "Zusätzliche Info-Statistik (#364)\nHinzugefügt fehlende Zustände von IRCv2 (#365)\nBasisfunktionalität für Remote (Media Controller) hinzugefügt\nBehobene ack Überschreiben von schnell sich ändernden Zuständen (#399) und allgemeine ack Verbesserungen\nCrash beheben, wenn während des Miniserver-Neustarts Zustandsänderungen auftreten oder sonst nicht verfügbar (#298)\nRelease Skript und andere Abhängigkeitsaktualisierungen",
